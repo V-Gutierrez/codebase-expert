@@ -1,0 +1,5 @@
+langchain==0.0.191
+transformers
+sentence-transformers
+chromadb==0.3.29
+einops
