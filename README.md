@@ -20,6 +20,9 @@ After model downloads, documents splits and embeddings generations you will go i
 
 (Example using this codebase: https://github.com/V-Gutierrez/genesisapp-be)
 <img width="1202" alt="image" src="https://github.com/V-Gutierrez/llm-codebase-expert/assets/62355596/631bba51-0aa0-4b88-8626-16afef28a555">
+<img width="1077" alt="image" src="https://github.com/V-Gutierrez/llm-codebase-expert/assets/62355596/edc85e3c-63ed-42f0-a93f-1fd334e8ca0b">
+
+
 
 ## Features
 
