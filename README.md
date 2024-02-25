@@ -35,6 +35,7 @@ Features
 
 This tool is built using the following key components:
 
+- Powered by LangChain
 - HuggingFaceEmbeddings & Transformers: For processing natural language queries and generating text-based responses.
 - Chroma Vector Store: For efficient storage and retrieval of document embeddings, enabling quick access to relevant code snippets.
 - ConversationalRetrievalChain: A custom pipeline that combines language understanding and retrieval capabilities to provide precise answers to user queries.
