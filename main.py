@@ -13,7 +13,7 @@ os.system(f"git clone {target_repository} {folder_name}")
 
 documents = []
 
-print("Reading files...")
+print("\033[1;32mReading files...\033[0m")
 for root, dirs, files in os.walk(folder_name):
     for file in files:
         try:
@@ -25,8 +25,8 @@ for root, dirs, files in os.walk(folder_name):
             # some files are not utf-8 encoded; let's ignore them for now.
             pass
 
-
-print("Creating vector store...")
+print(f"Generated Documents: {len(documents)}")
+print("\033[1;34mCreating vector store...\033[0m")
 huggingface_embeddings = HuggingFaceEmbeddings(model_name="krlvi/sentence-t5-base-nlpl-code-x-glue")
 persist_directory = "db"
 
@@ -35,7 +35,7 @@ db.persist()
 
 retriever = db.as_retriever()
 
-print("Creating pipeline...")
+print("\033[1;35mCreating pipeline...\033[0m")
 model_id = "stabilityai/stable-code-3b"
 config = transformers.AutoConfig.from_pretrained(model_id,trust_remote_code=True)
 tokenizer = transformers.AutoTokenizer.from_pretrained(model_id)
@@ -46,18 +46,26 @@ pipe.model.config.pad_token_id = pipe.model.config.eos_token_id
 
 llm = HuggingFacePipeline(pipeline=pipe)
 
-qa_chain = ConversationalRetrievalChain.from_llm(llm=llm,retriever=retriever,return_source_documents=True)
-os.system('cls' if os.name == 'nt' else 'clear')
+condense_question_template = """
+    All the questions are about the codebase embedded in the documents.
+    
+    Chat History: {chat_history}
+    Follow Up question: {question}
+    Standalone question:
+"""
+condense_question_prompt = PromptTemplate.from_template(condense_question_template)
+
+qa_chain = ConversationalRetrievalChain.from_llm(llm=llm,retriever=retriever,return_source_documents=True, condense_question_prompt=condense_question_prompt)
 
 while True:
-    user_question = input("Make your question about the codebase: \n")
+    user_question = input("\033[1;36mMake your question about the codebase (or say `quit`): \n\033[0m")
     
     if user_question.lower() == 'quit': 
         os.system('cls' if os.name == 'nt' else 'clear')
         print("Goodbye!")
         break
     
-    print("Answering...")
+    print("\033[1;33mAnswering...\033[0m")
     result = qa_chain({"question":user_question, "chat_history":[]})
-    print(f"Answer: {result['answer']}")
+    print("\033[1;36mAnswer:", result['answer'], "\033[0m")
     print(f"Sources: {[x.metadata['source'] for x in result['source_documents']]}")
