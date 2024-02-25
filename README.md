@@ -34,7 +34,7 @@ Upon completion of model downloads, document splitting, and embeddings generatio
 
 ### Interactive Mode Screenshots
 
-Here are some examples of the tool in action using the GenesisApp codebase:
+Here are some examples of the tool in action using the [GenesisApp](https://github.com/V-Gutierrez/genesisapp-be) codebase:
 
 ![Example Interaction 1](https://github.com/V-Gutierrez/llm-codebase-expert/assets/62355596/631bba51-0aa0-4b88-8626-16afef28a555)
 
